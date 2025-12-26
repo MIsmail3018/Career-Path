@@ -149,8 +149,8 @@ function signToken(payload) {
 function setAuthCookie(res, token) {
   res.cookie("cp_token", token, {
     httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: "none", // allow cross-site (Netlify -> Railway)
+    secure: true,       // required for SameSite=None
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 }
@@ -158,8 +158,8 @@ function setAuthCookie(res, token) {
 function clearAuthCookie(res) {
   res.cookie("cp_token", "", {
     httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    secure: true,
     maxAge: 0
   });
 }
