@@ -23,7 +23,21 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-app.use(cors({ origin: true, credentials: true }));
+const allowedOrigins = [
+  "https://fanciful-duckanoo-de05c6.netlify.app",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+  undefined // allow same-origin in dev
+];
+
+app.use(cors({
+  origin: (origin, cb) => {
+    // Allow requests with no origin (mobile apps, curl) and allowed list
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    return cb(new Error("Not allowed by CORS"));
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(__dirname));
