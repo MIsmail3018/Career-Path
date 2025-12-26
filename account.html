@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CareerPath – My Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+    }
+    a {
+      color: #22c55e;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* =============== HEADER =============== */
+    header {
+      padding: 14px 24px 4px;
+      background: transparent;
+      border-bottom: none;
+    }
+    .header-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(129,140,248,0.7);
+      background: radial-gradient(circle at top left,
+                  rgba(15,23,42,0.96),
+                  rgba(15,23,42,0.88));
+      box-shadow: 0 10px 32px rgba(15,23,42,0.85);
+    }
+
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 0 18px rgba(99,102,241,0.7);
+    }
+    .logo-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+    .nav-link {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #9ca3af;
+      position: relative;
+      transition: 0.25s ease;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 3px;
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: 0.25s ease;
+    }
+    .nav-link.active {
+      color: #22c55e;
+      text-shadow: 0 0 12px rgba(34,197,94,0.9);
+    }
+    .nav-link.active::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .header-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #fbbf24, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111827;
+      border: 2px solid #22c55e;
+      box-shadow: 0 0 14px rgba(34,197,94,0.7);
+      cursor: default;
+    }
+
+    @media (max-width: 640px) {
+      .header-bar { padding: 8px 12px; }
+      .logo-title { font-size: 0.9rem; }
+      .header-nav { gap: 10px; font-size: 0.8rem; }
+      .nav-link:nth-child(2) { display: none; }
+    }
+
+    /* =============== LAYOUT =============== */
+    main {
+      max-width: 1150px;
+      margin: 20px auto 40px;
+      padding: 0 16px 24px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #020617, #020617 70%, #020617 100%);
+      border-radius: 22px;
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f9fafb;
+      text-align: left;
+      margin-bottom: 4px;
+    }
+    .page-subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+
+    /* =============== PROFILE HEADER =============== */
+
+    .profile-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 720px) {
+      .profile-row {
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-rows: auto auto;
+      }
+    }
+
+    .profile-avatar-large {
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #fbbf24, #f97316);
+      border: 3px solid #22c55e;
+      box-shadow: 0 0 22px rgba(34,197,94,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .profile-main-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .profile-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .profile-email {
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+
+    /* role switch pill */
+    .role-switch {
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.5);
+      background: rgba(15,23,42,0.96);
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .role-label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-right: 6px;
+      padding: 0 4px;
+    }
+    .role-pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      transition: 0.2s ease;
+    }
+    .role-pill.active {
+      background: linear-gradient(to right, #16a34a, #22c55e);
+      color: #022c22;
+      box-shadow: 0 0 14px rgba(34,197,94,0.7);
+    }
+
+    /* quick stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 720px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .stat-card {
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(15,23,42,0.96);
+      border: 1px solid rgba(55,65,81,0.9);
+      font-size: 0.84rem;
+    }
+    .stat-label {
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    /* =============== CONTENT SECTIONS =============== */
+
+    .section-header {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 14px;
+    }
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sub-card {
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: #020617;
+      border: 1px solid rgba(55,65,81,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+    .sub-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(34,197,94,0.16), transparent 60%);
+      pointer-events: none;
+    }
+    .sub-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-small {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      margin: 2px 4px 2px 0;
+    }
+
+    .btn-small {
+      border-radius: 999px;
+      padding: 7px 14px;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(to right, #16a34a, #22c55e, #0ea5e9);
+      color: #022c22;
+      box-shadow: 0 10px 30px rgba(16,185,129,0.6);
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* seeker job list */
+    .job-row {
+      padding: 8px 0;
+      border-top: 1px solid rgba(31,41,55,0.9);
+      font-size: 0.85rem;
+    }
+    .job-row:first-of-type {
+      border-top: none;
+    }
+    .job-row-title {
+      font-weight: 500;
+      color: #f9fafb;
+    }
+    .job-row-meta {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .match-chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.95);
+      background: rgba(16,185,129,0.15);
+      font-size: 0.75rem;
+      color: #bbf7d0;
+      font-weight: 600;
+    }
+
+    /* employer job table */
+    .job-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .job-table th,
+    .job-table td {
+      padding: 6px 4px;
+      text-align: left;
+    }
+    .job-table th {
+      font-weight: 500;
+      color: #9ca3af;
+      border-bottom: 1px solid rgba(31,41,55,0.9);
+    }
+    .job-table tr + tr td {
+      border-top: 1px solid rgba(15,23,42,0.9);
+    }
+    .job-chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      border: 1px solid rgba(34,197,94,0.7);
+      background: rgba(16,185,129,0.12);
+      color: #bbf7d0;
+    }
+
+    .muted {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =============== HEADER =============== -->
+  <header>
+    <div class="header-inner">
+      <div class="header-bar">
+        <div class="logo-block">
+          <div class="logo-badge">CP</div>
+          <span class="logo-title">CareerPath</span>
+        </div>
+
+        <div class="header-nav">
+          <a id="navSeeker" href="index.html" class="nav-link">I’m a Job Seeker</a>
+          <a id="navEmployer" href="employer.html" class="nav-link">I’m an Employer</a>
+
+          <!-- account avatar (current page) -->
+          <div class="header-avatar" title="My account">
+            <span>M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =============== MAIN =============== -->
+  <main>
+    <section class="card">
+      <div class="page-title">My account</div>
+      <div class="page-subtitle">
+        See how you’re using CareerPath and jump back into posting jobs or looking for matches.
+      </div>
+
+      <!-- profile header -->
+      <div class="profile-row">
+        <div class="profile-avatar-large">M</div>
+
+        <div class="profile-main-text">
+          <div class="profile-name" id="profileName">Welcome back, Maria</div>
+          <div class="profile-email" id="profileEmail">maria@example.com</div>
+        </div>
+
+        <div class="role-switch" id="roleSwitch">
+          <span class="role-label">Using CareerPath as</span>
+          <button type="button" class="role-pill" data-role="seeker">Job seeker</button>
+          <button type="button" class="role-pill" data-role="employer">Employer</button>
+        </div>
+      </div>
+
+      <!-- quick stats -->
+      <div class="stats-row">
+        <div class="stat-card" id="statPrimary">
+          <div class="stat-label" id="statPrimaryLabel">Top match score</div>
+          <div class="stat-value" id="statPrimaryValue">—</div>
+        </div>
+        <div class="stat-card" id="statSecondary">
+          <div class="stat-label" id="statSecondaryLabel">Jobs posted</div>
+          <div class="stat-value" id="statSecondaryValue">0</div>
+        </div>
+      </div>
+
+      <!-- content depending on role -->
+      <!-- JOB SEEKER VIEW -->
+      <div id="seekerView">
+        <div class="section-header">Job seeker dashboard</div>
+        <div class="section-sub">
+          Keep your skills up to date to get accurate match scores for jobs.
+        </div>
+
+        <div class="content-grid">
+          <!-- skills card -->
+          <div class="sub-card">
+            <div class="sub-card-inner">
+              <div class="section-header" style="margin-bottom:4px;">Your skills</div>
+              <p class="section-sub">
+                These are the skills CareerPath uses to match you with roles.
+              </p>
+              <div id="seekerSkillsPills">
+                <span class="muted">No skills added yet.</span>
+              </div>
+              <textarea id="skillsEdit" style="display:none; width:100%; padding:10px; border:1px solid rgba(59,130,246,0.8); border-radius:8px; background:#020617; color:#e5e7eb; min-height:60px; font-family:inherit; margin-top:8px;"></textarea>
+              <div style="margin-top:8px; display:flex; gap:8px;">
+                <button class="btn-small" id="editSkillsBtn">
+                  ✏️ Edit skills
+                </button>
+                <button class="btn-small" id="saveSkillsBtn" style="display:none; background:linear-gradient(to right, #16a34a, #22c55e, #0ea5e9); color:#022c22;">
+                  💾 Save skills
+                </button>
+                <button class="btn-small" id="cancelSkillsBtn" style="display:none; background:rgba(59,130,246,0.15); color:#cbd5e1; border:1px solid rgba(59,130,246,0.6);">
+                  ✕ Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPLOYER VIEW -->
+      <div id="employerView" class="hidden">
+        <div class="section-header">Employer dashboard</div>
+        <div class="section-sub">
+          Manage the jobs you’ve posted and see how they’ll power matching for candidates.
+        </div>
+
+        <div class="content-grid">
+          <!-- left: job list -->
+          <div class="sub-card">
+            <div class="sub-card-inner">
+              <div class="section-header" style="margin-bottom:4px;">Your job postings</div>
+              <p class="section-sub">
+                Jobs you posted appear here so you can check their status and matches.
+              </p>
+
+              <table class="job-table" id="employerJobsTable">
+                <thead>
+                  <tr>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Matches</th>
+                    <th>Posted</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- rows injected by JS -->
+                </tbody>
+              </table>
+
+              <button class="btn-small" onclick="window.location.href='employer.html'">
+                ➕ Post a new job
+              </button>
+            </div>
+          </div>
+
+          <!-- right: quick notes -->
+          <div class="sub-card">
+            <div class="sub-card-inner">
+              <div class="section-header" style="margin-bottom:4px;">How matching works for your jobs</div>
+              <p class="section-sub">
+                Each role you post is broken down into required skills. When a candidate’s profile is close to that list,
+                they’ll see your job in their “Top matches”.
+              </p>
+              <ul class="muted" style="padding-left:16px; margin:0 0 8px;">
+                <li>Clear skill lists = better matches.</li>
+                <li>Good salary ranges increase click-throughs.</li>
+                <li>Strong apply links make it easy for candidates to finish the process.</li>
+              </ul>
+              <p class="muted">
+                You can adjust these details anytime from the <strong>Post a job</strong> page.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const API_BASE = window.API_BASE ?? (
+      location.port === "5500"
+        ? `${location.protocol}//${location.hostname}:3000`
+        : (location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? ""
+            : "https://your-render-service.onrender.com")
+    );
+
+    const seekerLink = document.querySelector("#navSeeker");
+    const employerLink = document.querySelector("#navEmployer");
+    function setActive(tab) {
+      seekerLink.classList.remove("active");
+      employerLink.classList.remove("active");
+      if (tab === "seeker") seekerLink.classList.add("active");
+      if (tab === "employer") employerLink.classList.add("active");
+    }
+    // default highlight job seeker tab on account
+    setActive("seeker");
+
+    const rolePills = document.querySelectorAll(".role-pill");
+    const seekerView = document.getElementById("seekerView");
+    const employerView = document.getElementById("employerView");
+
+    const statPrimaryLabel = document.getElementById("statPrimaryLabel");
+    const statPrimaryValue = document.getElementById("statPrimaryValue");
+    const statSecondaryLabel = document.getElementById("statSecondaryLabel");
+    const statSecondaryValue = document.getElementById("statSecondaryValue");
+    const statTertiaryLabel = document.getElementById("statTertiaryLabel");
+    const statTertiaryValue = document.getElementById("statTertiaryValue");
+
+    // Skills editing
+    const skillsEdit = document.getElementById("skillsEdit");
+    const editSkillsBtn = document.getElementById("editSkillsBtn");
+    const saveSkillsBtn = document.getElementById("saveSkillsBtn");
+    const cancelSkillsBtn = document.getElementById("cancelSkillsBtn");
+
+    let currentUserSkills = [];
+
+    if (editSkillsBtn) {
+      editSkillsBtn.addEventListener("click", () => {
+        skillsEdit.value = currentUserSkills.join(", ");
+        skillsEdit.style.display = "block";
+        editSkillsBtn.style.display = "none";
+        saveSkillsBtn.style.display = "inline-block";
+        cancelSkillsBtn.style.display = "inline-block";
+      });
+    }
+
+    if (cancelSkillsBtn) {
+      cancelSkillsBtn.addEventListener("click", () => {
+        skillsEdit.style.display = "none";
+        editSkillsBtn.style.display = "inline-block";
+        saveSkillsBtn.style.display = "none";
+        cancelSkillsBtn.style.display = "none";
+      });
+    }
+
+    if (saveSkillsBtn) {
+      saveSkillsBtn.addEventListener("click", async () => {
+        const skillsText = skillsEdit.value.trim();
+        const skills = skillsText ? skillsText.split(",").map(s => s.trim()).filter(Boolean) : [];
+        saveSkillsBtn.disabled = true;
+        saveSkillsBtn.textContent = "Saving...";
+        try {
+          const res = await fetch(`${API_BASE}/api/user/skills`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ skills })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            currentUserSkills = data.skills || [];
+            const skillsPills = document.getElementById("seekerSkillsPills");
+            skillsPills.innerHTML = "";
+            if (currentUserSkills.length) {
+              currentUserSkills.forEach(skill => {
+                const span = document.createElement("span");
+                span.className = "pill-small";
+                span.textContent = skill;
+                skillsPills.appendChild(span);
+              });
+            } else {
+              skillsPills.innerHTML = "<span class=\"muted\">No skills added yet.</span>";
+            }
+
+            // Recalculate match scores with new skills
+            if (currentUserSkills.length) {
+              try {
+                const matchRes = await fetch(`${API_BASE}/api/match-jobs`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  credentials: "include",
+                  body: JSON.stringify({ skills: currentUserSkills.join(", ") })
+                });
+                if (matchRes.ok) {
+                  const matchData = await matchRes.json();
+                  seekerJobs = (matchData && matchData.jobs) ? matchData.jobs : [];
+                  // Update stats
+                  const bestMatch = seekerJobs.reduce((max, job) => Math.max(max, job.matchPercent ?? 0), 0);
+                  statPrimaryValue.textContent = bestMatch > 0 ? `${bestMatch}%` : "—";
+                  statSecondaryValue.textContent = seekerJobs.length;
+                }
+              } catch (e) {}
+            }
+
+            skillsEdit.style.display = "none";
+            editSkillsBtn.style.display = "inline-block";
+            saveSkillsBtn.style.display = "none";
+            cancelSkillsBtn.style.display = "none";
+          } else {
+            alert("Failed to save skills");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Error saving skills");
+        } finally {
+          saveSkillsBtn.disabled = false;
+          saveSkillsBtn.textContent = "💾 Save skills";
+        }
+      });
+    }
+    const headerAvatarText = document.querySelector(".header-avatar span");
+    const profileAvatarText = document.querySelector(".profile-avatar-large");
+
+    let seekerJobs = [];
+    let employerJobs = [];
+    let currentRole = "seeker";
+
+    async function fetchMe() {
+      const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: "include" });
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => null);
+      return data?.user || null;
+    }
+
+    async function fetchMyJobs() {
+      const res = await fetch(`${API_BASE}/api/my-jobs`, { credentials: "include" });
+      if (!res.ok) return [];
+      return res.json();
+    }
+
+    function setProfile(user) {
+      if (!user) return;
+      document.getElementById("profileName").textContent = user.name ? `Welcome back, ${user.name}` : "Welcome";
+      document.getElementById("profileEmail").textContent = user.email || "";
+      const initial = user.name ? user.name.charAt(0).toUpperCase() : "M";
+      headerAvatarText.textContent = initial;
+      profileAvatarText.textContent = initial;
+
+      // Display skills for seekers
+      const skillsPills = document.getElementById("seekerSkillsPills");
+      currentUserSkills = (user.skills && Array.isArray(user.skills)) ? user.skills : [];
+      
+      if (skillsPills) {
+        if (currentUserSkills.length) {
+          skillsPills.innerHTML = "";
+          currentUserSkills.forEach(skill => {
+            const span = document.createElement("span");
+            span.className = "pill-small";
+            span.textContent = skill;
+            skillsPills.appendChild(span);
+          });
+        } else {
+          skillsPills.innerHTML = "<span class=\"muted\">No skills added yet.</span>";
+        }
+      }
+
+      if (user.role === "employer") {
+        const badge = user.companyName ? `${user.companyName}` : "Employer";
+        statPrimaryLabel.textContent = "Active postings";
+        statSecondaryLabel.textContent = "Company";
+        statSecondaryValue.textContent = badge;
+      }
+      currentRole = user.role || "seeker";
+      setRole(currentRole);
+    }
+
+    function renderSeekerJobs() {
+      const list = document.getElementById("seekerJobsList");
+      list.innerHTML = "";
+      if (!seekerJobs.length) {
+        list.innerHTML = "<div class='muted'>No matches yet. Add skills on the job seeker page.</div>";
+        return;
+      }
+      seekerJobs.slice(0, 5).forEach(job => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "job-row";
+
+        const match = job.matchPercent ?? 0;
+        const missing = Array.isArray(job.missingSkills) ? job.missingSkills.length : 0;
+
+        wrapper.innerHTML = `
+          <div class="job-row-title">${job.title}</div>
+          <div class="job-row-meta">
+            <span>${job.company || "Company"} • ${job.location || "Location"}</span>
+            <span class="match-chip">${match}% match</span>
+            <span>Missing ${missing} skill${missing === 1 ? "" : "s"}</span>
+          </div>
+        `;
+        list.appendChild(wrapper);
+      });
+    }
+
+    function renderEmployerJobs() {
+      const tbody = document.querySelector("#employerJobsTable tbody");
+      tbody.innerHTML = "";
+      if (!employerJobs.length) {
+        tbody.innerHTML = `<tr><td colspan="4" class="muted">No jobs yet. <a href="employer.html">Post your first job</a>.</td></tr>`;
+        return;
+      }
+      employerJobs.forEach(job => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${job.title}</td>
+          <td><span class="job-chip">Active</span></td>
+          <td>${job.matches || 0}</td>
+          <td>${job.createdAt ? new Date(job.createdAt).toLocaleDateString() : ""}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function setRole(role) {
+      currentRole = role;
+      rolePills.forEach(p => {
+        p.classList.toggle("active", p.dataset.role === role);
+      });
+
+      if (role === "employer") {
+        seekerView.classList.add("hidden");
+        employerView.classList.remove("hidden");
+        const totalMatches = employerJobs.reduce((sum, j) => sum + (j.matches || 0), 0);
+        const latestPostedTs = employerJobs.reduce((latest, j) => {
+          const ts = j.createdAt ? new Date(j.createdAt).getTime() : 0;
+          return ts > latest ? ts : latest;
+        }, 0);
+
+        statPrimaryLabel.textContent = "Active postings";
+        statPrimaryValue.textContent = employerJobs.length;
+        statSecondaryLabel.textContent = "Total matches";
+        statSecondaryValue.textContent = totalMatches;
+        statTertiaryLabel.textContent = "Last posted";
+        statTertiaryValue.textContent = latestPostedTs ? new Date(latestPostedTs).toLocaleDateString() : "—";
+      } else {
+        seekerView.classList.remove("hidden");
+        employerView.classList.add("hidden");
+        
+        // Calculate top match score from saved skills
+        let topMatchScore = "—";
+        if (currentUserSkills && currentUserSkills.length) {
+          // Find the highest match from jobs using their skills
+          const bestMatch = seekerJobs.reduce((max, job) => Math.max(max, job.matchPercent ?? 0), 0);
+          topMatchScore = bestMatch > 0 ? `${bestMatch}%` : "—";
+        }
+        
+        statPrimaryLabel.textContent = "Top match score";
+        statPrimaryValue.textContent = topMatchScore;
+        statSecondaryLabel.textContent = "Jobs available";
+        statSecondaryValue.textContent = seekerJobs.length;
+      }
+
+      // remember role for later
+      try {
+        localStorage.setItem("cpRole", role);
+      } catch (e) {}
+    }
+
+    rolePills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        setRole(pill.dataset.role);
+      });
+    });
+
+    // initial setup
+    renderEmployerJobs();
+
+    async function loadData() {
+      try {
+        const user = await fetchMe();
+        if (user) {
+          setProfile(user);
+          currentRole = user.role || currentRole;
+        }
+
+        if (currentRole === "employer") {
+          employerJobs = await fetchMyJobs();
+          renderEmployerJobs();
+        } else {
+          // Fetch and calculate match scores if user has skills
+          if (currentUserSkills && currentUserSkills.length) {
+            try {
+              const res = await fetch(`${API_BASE}/api/match-jobs`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ skills: currentUserSkills.join(", ") })
+              });
+              if (res.ok) {
+                const data = await res.json();
+                seekerJobs = (data && data.jobs) ? data.jobs : [];
+              }
+            } catch (e) {
+              seekerJobs = [];
+            }
+          } else {
+            seekerJobs = [];
+          }
+          // Don't render jobs list since we removed it from account page
+        }
+
+        let initialRole = currentRole;
+        try {
+          const stored = localStorage.getItem("cpRole");
+          if (stored === "employer" || stored === "seeker") {
+            initialRole = stored;
+          }
+        } catch (e) {}
+        
+        // Update stats after all data is loaded
+        setRole(initialRole);
+      } catch (e) {
+        setRole(currentRole);
+      }
+    }
+
+    loadData();
+  </script>
+</body>
+</html>

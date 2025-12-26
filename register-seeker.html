@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerPath – Job Seeker Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body {
+      margin: 0; padding: 0; min-height: 100vh;
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card {
+      width: min(440px, 92vw);
+      background: #020617;
+      border-radius: 18px;
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.9);
+    }
+    h1 { margin: 0 0 6px; font-size: 1.5rem; }
+    p { margin: 0 0 14px; color: #9ca3af; font-size: 0.95rem; }
+    label { display:block; margin: 10px 0 4px; font-size: 0.9rem; font-weight: 500; }
+    input {
+      width: 100%; padding: 10px 12px; border-radius: 12px;
+      border: 1px solid #4b5563; background: #030712; color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+    input:focus { outline: none; border-color: #22c55e; box-shadow: 0 0 0 1px rgba(34,197,94,0.55); }
+    button {
+      width: 100%; margin-top: 16px; padding: 12px 14px; border-radius: 12px;
+      border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      background: linear-gradient(to right, #16a34a, #22c55e, #0ea5e9); color: #022c22;
+      box-shadow: 0 10px 34px rgba(16,185,129,0.7);
+    }
+    button:disabled { opacity: 0.7; cursor: not-allowed; box-shadow: none; }
+    .alert { margin-top: 10px; padding: 10px 12px; border-radius: 12px; font-size: 0.9rem; }
+    .alert-success { background: rgba(21,128,61,0.18); border: 1px solid rgba(34,197,94,0.6); color: #bbf7d0; }
+    .alert-error { background: rgba(127,29,29,0.2); border: 1px solid rgba(248,113,113,0.6); color: #fecaca; }
+    .links { margin-top: 10px; text-align: center; font-size: 0.9rem; }
+    .links a { color: #22c55e; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Job seeker signup</h1>
+    <p>Create a job seeker account to save skills and unlock matches.</p>
+    <form id="registerForm">
+      <label for="name">Full name</label>
+      <input id="name" type="text" placeholder="Maria" required />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" required />
+
+      <label for="password">Password (min 6 characters)</label>
+      <input id="password" type="password" placeholder="••••••" required minlength="6" />
+
+      <button type="submit" id="registerBtn">Create account</button>
+      <div id="msg" class="alert" style="display:none;"></div>
+    </form>
+    <div class="links">
+      <div>Already have a seeker account? <a href="login-seeker.html">Log in</a></div>
+      <div>Registering an employer? <a href="register.html">Go to employer signup</a></div>
+      <div><a href="jobseeker.html">Back to job seeker page</a></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.API_BASE ?? (
+      location.port === "5500"
+        ? `${location.protocol}//${location.hostname}:3000`
+        : (location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? ""
+            : "https://your-render-service.onrender.com")
+    );
+    const form = document.getElementById("registerForm");
+    const msg = document.getElementById("msg");
+    const btn = document.getElementById("registerBtn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.style.display = "none";
+      btn.disabled = true;
+      btn.textContent = "Creating account...";
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            password: form.password.value.trim(),
+            role: "seeker"
+          }),
+          credentials: "include"
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "Registration failed");
+        msg.textContent = "Account created. Redirecting...";
+        msg.className = "alert alert-success";
+        msg.style.display = "block";
+        setTimeout(() => { window.location.href = "jobseeker.html"; }, 500);
+      } catch (err) {
+        msg.textContent = err.message;
+        msg.className = "alert alert-error";
+        msg.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Create account";
+      }
+    });
+  </script>
+</body>
+</html>

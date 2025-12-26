@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CareerPath – Job Seeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+    }
+    a { color: #22c55e; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    header {
+      padding: 14px 24px 4px;
+    }
+    .header-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(129,140,248,0.7);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.88));
+      box-shadow: 0 10px 32px rgba(15,23,42,0.85);
+    }
+    .logo-block { display: flex; align-items: center; gap: 8px; }
+    .logo-badge {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #22c55e);
+      display: flex; align-items: center; justify-content: center;
+      color: #f9fafb; font-weight: 700; font-size: 0.9rem;
+      box-shadow: 0 0 18px rgba(99,102,241,0.7);
+    }
+    .logo-title { font-size: 0.98rem; font-weight: 600; color: #f9fafb; }
+
+    .header-nav { display: flex; align-items: center; gap: 26px; }
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #9ca3af;
+      position: relative;
+      transition: 0.25s ease;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -4px;
+      height: 3px;
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: 0.25s ease;
+    }
+    .nav-link.active { color: #22c55e; text-shadow: 0 0 12px rgba(34,197,94,0.9); }
+    .nav-link.active::after { opacity: 1; transform: translateY(0); }
+
+    .header-avatar {
+      width: 32px; height: 32px; border-radius: 999px;
+      background: radial-gradient(circle at top, #fbbf24, #f97316);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 600; color: #111827;
+      border: 2px solid #22c55e;
+      box-shadow: 0 0 14px rgba(34,197,94,0.7);
+      cursor: pointer;
+    }
+    .avatar-wrapper { position: relative; }
+    .avatar-menu {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      background: #0b1224;
+      border: 1px solid rgba(59,130,246,0.8);
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      padding: 6px;
+      min-width: 150px;
+      display: none;
+      z-index: 20;
+    }
+    .avatar-menu.show { display: block; }
+    .avatar-menu-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: #e5e7eb;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .avatar-menu-item:hover { background: rgba(59,130,246,0.2); }
+
+    @media (max-width: 640px) {
+      .header-nav { gap: 10px; }
+      .nav-link:nth-child(2) { display: none; }
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: 1150px;
+      margin: 20px auto 40px;
+      padding: 0 16px 24px;
+    }
+    .card {
+      background: radial-gradient(circle at top left, #020617, #020617 70%, #020617 100%);
+      border-radius: 22px;
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    /* HERO TEXT */
+    .hero-main-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      color: #f9fafb;
+      text-align: center;
+    }
+    .hero-main-title span { color: #22c55e; }
+    .hero-subtitle-bar {
+      max-width: 900px;
+      margin: 0 auto 18px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.35);
+      background: linear-gradient(to right, rgba(16,185,129,0.18), rgba(59,130,246,0.12));
+    }
+    .hero-subtitle {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      text-align: center;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 6px;
+      color: #e5e7eb;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      resize: vertical;
+      font-size: 0.9rem;
+      min-height: 70px;
+      text-align: center;
+    }
+    textarea::placeholder { color: #6b7280; font-size: 0.86rem; }
+    textarea:focus {
+      outline: none;
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.55);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(to right, #16a34a, #22c55e, #0ea5e9);
+      color: #022c22;
+      box-shadow: 0 10px 34px rgba(16,185,129,0.7);
+    }
+    .btn-primary:hover { filter: brightness(1.05); }
+    .btn:disabled { opacity: 0.7; cursor: not-allowed; box-shadow: none; }
+
+    .hint { font-size: 0.8rem; color: #9ca3af; text-align: center; }
+
+    .skills-preview {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.9);
+      color: #e5e7eb;
+    }
+    .pill span.dot {
+      width: 7px; height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+    .alert {
+      font-size: 0.8rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(248,250,252,0.03);
+      border: 1px solid rgba(248,250,252,0.22);
+      color: #fecaca;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* JOBS + DETAILS */
+    .section-title-centered {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .highlight-skill { color: #22c55e; }
+
+    .jobs-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+    }
+    .matches-card { position: relative; }
+    .lock-chip { filter: blur(5px); }
+    .details-lock {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2,6,23,0.75);
+      backdrop-filter: blur(3px);
+      z-index: 4;
+      padding: 16px;
+      text-align: center;
+    }
+    .details-lock-card {
+      background: #0b1224;
+      border: 1px solid rgba(59,130,246,0.7);
+      border-radius: 16px;
+      padding: 14px 16px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      text-align: center;
+      color: #e5e7eb;
+    }
+    .lock-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .lock-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #022c22;
+      background: linear-gradient(to right, #16a34a, #22c55e, #0ea5e9);
+      box-shadow: 0 10px 34px rgba(16,185,129,0.5);
+    }
+    .lock-btn.secondary {
+      background: rgba(59,130,246,0.15);
+      color: #cbd5e1;
+      border: 1px solid rgba(59,130,246,0.6);
+      box-shadow: none;
+    }
+    .details-blur { filter: blur(6px); pointer-events: none; }
+    .blurred-info { filter: blur(6px); pointer-events: none; }
+    .unlock-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.45);
+      padding: 6px 10px;
+      border-radius: 12px;
+      margin-left: 8px;
+    }
+    @media (max-width: 900px) {
+      .jobs-layout { grid-template-columns: 1fr; }
+    }
+
+    .jobs-list {
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .job-card {
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #020617;
+      border: 1px solid rgba(55,65,81,0.9);
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.15s ease, border 0.15s ease, background 0.15s ease;
+    }
+    .job-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(15,23,42,0.9);
+      border-color: rgba(59,130,246,0.8);
+      background: #030712;
+    }
+    .job-card.active {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.85), 0 18px 50px rgba(22,163,74,0.7);
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .job-title { font-size: 0.98rem; font-weight: 600; color: #f9fafb; }
+    .job-company { font-size: 0.8rem; color: #9ca3af; }
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+    .match-chip {
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: rgba(22,163,74,0.12);
+      border: 1px solid rgba(34,197,94,0.95);
+      color: #bbf7d0;
+    }
+    .salary { font-weight: 600; color: #e5e7eb; }
+
+    .details-panel {
+      border-radius: 18px;
+      padding: 18px 20px 20px;
+      background: #020617;
+      border: 1px solid rgba(59,130,246,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+    .details-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at bottom right, rgba(34,197,94,0.22), transparent 60%);
+      pointer-events: none;
+    }
+    .empty-state-pill {
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.45);
+      color: #bbf7d0;
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 420px;
+      margin: 40px auto;
+      box-shadow: 0 0 18px rgba(34,197,94,0.25);
+    }
+
+    .job-details-header { text-align: center; margin-bottom: 14px; }
+    .details-title { font-size: 1.3rem; font-weight: 600; }
+    .details-job-meta { font-size: 0.88rem; color: #9ca3af; margin-top: 2px; }
+    .align-text { margin-top: 8px; font-size: 0.95rem; font-weight: 600; color: #bbf7d0; }
+
+    .job-details-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 800px) { .job-details-main { grid-template-columns: 1fr; } }
+
+    .job-info-card {
+      border-radius: 18px;
+      padding: 12px 16px 14px;
+      background: radial-gradient(circle at top left, #020617, #020617 70%);
+      border: 1px solid rgba(129,140,248,0.5);
+    }
+    .job-info-section + .job-info-section {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(148,163,184,0.6);
+    }
+    .job-info-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+
+    .list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 0.82rem;
+      color: #e5e7eb;
+    }
+    .list li {
+      margin-bottom: 4px;
+      position: relative;
+      padding-left: 12px;
+    }
+    .list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0ea5e9;
+      font-size: 0.9rem;
+    }
+
+    .job-score-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .match-circle {
+      --circle-color: #22c55e;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: conic-gradient(var(--circle-color) 0deg 0deg, rgba(15,23,42,0.95) 0deg 360deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 25px rgba(34,197,94,0.4);
+    }
+    .match-circle::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 999px;
+      background: #020617;
+    }
+    .match-circle-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #f9fafb;
+    }
+    .motivation-text {
+      max-width: 260px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+    }
+
+    .learning-section {
+      margin-top: 14px;
+      border-radius: 16px;
+      padding: 10px 14px 12px;
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.95), #020617);
+      border: 1px solid rgba(129,140,248,0.5);
+    }
+    .learning-header { font-size: 0.94rem; font-weight: 600; margin-bottom: 6px; }
+    .paths-wrapper { margin-top: 8px; max-height: 170px; overflow-y: auto; padding-right: 4px; }
+    .path-card {
+      border-radius: 12px;
+      padding: 8px 10px;
+      background: #020617;
+      border: 1px dashed rgba(148,163,184,0.7);
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+    .path-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .path-target { font-weight: 600; }
+    .path-badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(59,130,246,0.9);
+      color: #bfdbfe;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .path-skill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(129,140,248,0.9);
+      margin: 2px 4px 2px 0;
+    }
+    .resources-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 4px 0 0;
+      font-size: 0.78rem;
+    }
+    .resources-list li {
+      margin-bottom: 3px;
+      padding-left: 12px;
+      position: relative;
+    }
+    .resources-list li::before {
+      content: "↗";
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      color: #22c55e;
+    }
+    .difficulty-tag { color: #a5b4fc; font-size: 0.75rem; margin-left: 4px; }
+    .empty-state { font-size: 0.85rem; color: #9ca3af; text-align: center; margin-top: 20px; }
+    .muted { color: #9ca3af; }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="header-bar">
+        <div class="logo-block">
+          <div class="logo-badge">CP</div>
+          <span class="logo-title">CareerPath</span>
+        </div>
+
+        <div class="header-nav">
+          <a id="navSeeker" href="jobseeker.html" class="nav-link active">I’m a Job Seeker</a>
+          <a id="navEmployer" href="employer.html" class="nav-link">I’m an Employer</a>
+          <div class="avatar-wrapper">
+            <div class="header-avatar" id="avatarButton" title="Log in to your account"><span id="avatarInitial">?</span></div>
+            <div class="avatar-menu" id="avatarMenu"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO INPUT CARD -->
+    <section class="card">
+      <div class="hero-main-title">
+        Design your <span>next job</span> with the skills you already have.
+      </div>
+
+      <div class="hero-subtitle-bar">
+        <p class="hero-subtitle">
+          Paste the skills you know. We’ll show you the jobs you’re already close to – and the exact skills to learn to cross the finish line.
+        </p>
+      </div>
+
+      <label for="skillsInput">Your current skills (comma-separated)</label>
+      <textarea id="skillsInput" placeholder="Example: HTML, CSS, JavaScript, React, SQL, Data Structures"></textarea>
+
+      <div class="btn-row">
+        <button id="findJobsBtn" class="btn btn-primary">
+          🔍 Find jobs I’m already close to
+        </button>
+        <div class="hint">
+          Tip: Be honest. The more accurate this list is, the better your roadmap.
+        </div>
+      </div>
+
+      <div id="skillsPreview" class="skills-preview"></div>
+      <div id="inputError" class="alert" style="display:none;"></div>
+    </section>
+
+    <!-- JOBS + LEARNING PATH -->
+    <section class="card matches-card" id="matchesCard" style="margin-top: 20px;">
+      <div class="section-title-centered">
+        Turn your <span class="highlight-skill">skills</span> into real job matches
+      </div>
+
+      <div class="jobs-layout">
+        <!-- LEFT: jobs list -->
+        <div class="jobs-list" id="jobsContainer">
+          <div class="empty-state">
+            Start by adding your skills above and clicking the button. Your top matches will appear here.
+          </div>
+        </div>
+
+        <!-- RIGHT: details panel -->
+          <div class="details-panel" id="detailsPanel" style="position:relative;">
+          <div id="detailsEmpty" class="empty-state-pill">
+            Your personalized job breakdown and learning roadmap will appear here.
+          </div>
+
+          <div id="detailsContent" style="display:none;">
+            <div class="job-details-header">
+              <div class="details-title" id="detailsJobTitle"></div>
+              <div class="details-job-meta" id="detailsJobMeta"></div>
+              <div class="align-text" id="matchText"></div>
+              <div id="unlockHint" class="unlock-hint" style="display:none;">🔒 Log in to unlock full details</div>
+            </div>
+
+            <div class="job-details-main">
+              <div class="job-info-card">
+                <div class="job-info-section">
+                  <div class="job-info-title">Job snapshot</div>
+                  <ul class="list" id="jobInfoList"></ul>
+                </div>
+                <div class="job-info-section">
+                  <div class="job-info-title">Skills we’re checking for this role</div>
+                  <ul class="list" id="requiredSkillsList"></ul>
+                </div>
+                <div class="job-info-section">
+                  <div class="job-info-title">Skills you already bring</div>
+                  <ul class="list" id="alreadyHaveList"></ul>
+                </div>
+              </div>
+
+              <div class="job-score-card">
+                <div class="match-circle" id="matchCircle">
+                  <div class="match-circle-inner">
+                    <span id="matchPercent">0%</span>
+                  </div>
+                </div>
+                <div class="motivation-text" id="closeText"></div>
+              </div>
+            </div>
+
+            <div class="learning-section">
+              <div class="learning-header">Missing skills & learning path</div>
+              <ul class="list" id="missingSkillsList"></ul>
+              <div class="paths-wrapper" id="pathsWrapper"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="detailsLock" class="details-lock">
+          <div class="details-lock-card">
+            <div style="font-weight:700; margin-bottom:6px;">Log in to reveal match rates & skill gaps</div>
+            <div style="color:#cbd5e1; margin-bottom:10px;">See how close you are and the exact skills to learn next.</div>
+            <div class="lock-btns">
+              <button class="lock-btn" onclick="window.location.href='login-seeker.html'">Log in</button>
+              <button class="lock-btn secondary" onclick="window.location.href='register-seeker.html'">Create account</button>
+            </div>
+          </div>
+        </div>
+    </section>
+  </main>
+
+  <!-- MAIN SCRIPT -->
+  <script>
+    // API base: same-origin locally; replace string below after deploying API
+    const API_BASE = window.API_BASE ?? (
+      location.port === "5500"
+        ? `${location.protocol}//${location.hostname}:3000`
+        : (location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? ""
+            : "https://your-render-service.onrender.com")
+    );
+
+    const skillsInput = document.getElementById("skillsInput");
+    const findJobsBtn = document.getElementById("findJobsBtn");
+    const skillsPreview = document.getElementById("skillsPreview");
+    const inputError = document.getElementById("inputError");
+    const jobsContainer = document.getElementById("jobsContainer");
+    const matchesCard = document.getElementById("matchesCard");
+
+    const detailsPanel = document.getElementById("detailsPanel");
+    const detailsLock = document.getElementById("detailsLock");
+    const detailsEmpty = document.getElementById("detailsEmpty");
+    const detailsContent = document.getElementById("detailsContent");
+    const detailsJobTitle = document.getElementById("detailsJobTitle");
+    const detailsJobMeta = document.getElementById("detailsJobMeta");
+    const unlockHint = document.getElementById("unlockHint");
+
+    const matchText = document.getElementById("matchText");
+    const matchCircle = document.getElementById("matchCircle");
+    const matchPercent = document.getElementById("matchPercent");
+    const closeText = document.getElementById("closeText");
+
+    const jobInfoList = document.getElementById("jobInfoList");
+    const requiredSkillsList = document.getElementById("requiredSkillsList");
+    const alreadyHaveList = document.getElementById("alreadyHaveList");
+    const missingSkillsList = document.getElementById("missingSkillsList");
+    const pathsWrapper = document.getElementById("pathsWrapper");
+    const applyLinkPreview = document.getElementById("previewApply");
+
+    const avatarButton = document.getElementById("avatarButton");
+    const avatarInitial = document.getElementById("avatarInitial");
+    const avatarMenu = document.getElementById("avatarMenu");
+
+    const SKILLS_KEY = "cpSeekerSkillsDraft";
+    let isLoggedIn = false;
+    let currentUser = null;
+    let currentJobs = [];
+
+    function setAvatar(user) {
+      currentUser = user;
+      if (!avatarButton || !avatarInitial) return;
+      const initial = user?.name?.trim?.().charAt?.(0)?.toUpperCase?.() || "?";
+      avatarInitial.textContent = initial;
+      avatarButton.title = user ? `${user.name}` : "Log in to your account";
+      renderAvatarMenu(user);
+    }
+
+    function renderAvatarMenu(user) {
+      if (!avatarMenu) return;
+      if (user) {
+        const isAdmin = user.role === 'admin';
+        avatarMenu.innerHTML = `
+          ${isAdmin ? '<button class="avatar-menu-item" id="menuAdmin">Admin</button>' : ''}
+          <button class="avatar-menu-item" id="menuAccount">Account</button>
+          <button class="avatar-menu-item" id="menuLogout">Logout</button>
+        `;
+        const accountBtn = document.getElementById("menuAccount");
+        const logoutBtn = document.getElementById("menuLogout");
+        const adminBtn = document.getElementById("menuAdmin");
+        accountBtn?.addEventListener("click", () => window.location.href = "account.html");
+        adminBtn?.addEventListener("click", () => window.location.href = "admin.html");
+        logoutBtn?.addEventListener("click", async () => {
+          logoutBtn.textContent = "Logging out...";
+          try {
+            await fetch(`${API_BASE}/api/auth/logout`, { method: "POST", credentials: "include" });
+          } catch (e) {}
+          window.location.href = "login-seeker.html";
+        });
+      } else {
+        avatarMenu.innerHTML = `
+          <a class="avatar-menu-item" href="login-seeker.html">Log in</a>
+          <a class="avatar-menu-item" href="register-seeker.html">Create account</a>
+        `;
+      }
+    }
+
+    function toggleAvatarMenu() {
+      if (!avatarMenu) return;
+      avatarMenu.classList.toggle("show");
+    }
+
+    if (avatarButton) {
+      avatarButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleAvatarMenu();
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!avatarMenu || !avatarMenu.classList.contains("show")) return;
+      const within = avatarMenu.contains(e.target) || avatarButton?.contains(e.target);
+      if (!within) avatarMenu.classList.remove("show");
+    });
+
+    function parseSkills(text) {
+      return text
+        .split(",")
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+    }
+
+    function renderSkillPills(skills) {
+      skillsPreview.innerHTML = "";
+      if (!skills.length) return;
+      skills.forEach(skill => {
+        const span = document.createElement("span");
+        span.className = "pill";
+        span.innerHTML = `<span class="dot"></span>${skill}`;
+        skillsPreview.appendChild(span);
+      });
+    }
+
+    function setLocked(locked) {
+      isLoggedIn = !locked;
+
+      // keep match chips visible
+      document.querySelectorAll(".match-chip").forEach(chip => {
+        const score = chip.dataset.score || chip.textContent.replace(/[^0-9]/g, "") || "0";
+        chip.classList.remove("lock-chip");
+        chip.textContent = `${score}% match`;
+      });
+
+      const blurSelectors = [
+        ".job-company",
+        ".job-meta",
+        "#detailsJobMeta",
+        "#jobInfoList",
+        "#requiredSkillsList",
+        "#alreadyHaveList",
+        "#missingSkillsList",
+        "#pathsWrapper",
+        ".job-info-card",
+        ".learning-section",
+        ".apply-link-preview"
+      ];
+
+      blurSelectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          el.classList.toggle("blurred-info", locked);
+        });
+      });
+
+      if (detailsPanel) {
+        detailsPanel.classList.remove("details-blur");
+      }
+      if (detailsLock) {
+        detailsLock.style.display = "none";
+      }
+      if (unlockHint) {
+        unlockHint.style.display = locked ? "inline-flex" : "none";
+      }
+    }
+
+    async function fetchMe() {
+      const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: "include" });
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => null);
+      return data?.user || null;
+    }
+
+    // Don't load localStorage on page load - wait for auth check
+    // try {
+    //   const saved = localStorage.getItem(SKILLS_KEY);
+    //   if (saved) {
+    //     skillsInput.value = saved;
+    //     renderSkillPills(parseSkills(saved));
+    //   }
+    // } catch (e) {}
+
+    skillsInput.addEventListener("input", () => {
+      const skills = parseSkills(skillsInput.value);
+      renderSkillPills(skills);
+      inputError.style.display = "none";
+      try { localStorage.setItem(SKILLS_KEY, skillsInput.value); } catch (e) {}
+    });
+
+    async function fetchJobsFromBackend(userSkillsText) {
+      const resp = await fetch(`${API_BASE}/api/match-jobs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ skills: userSkillsText })
+      });
+
+      if (!resp.ok) throw new Error("Network error: " + resp.status);
+      return resp.json();
+    }
+
+    findJobsBtn.addEventListener("click", async () => {
+      const rawText = skillsInput.value.trim();
+      const pillsSkills = parseSkills(rawText);
+
+      if (!pillsSkills.length) {
+        inputError.textContent = "Add at least one skill. You already know more than you think — write them down.";
+        inputError.style.display = "block";
+        return;
+      }
+
+      inputError.style.display = "none";
+      findJobsBtn.disabled = true;
+      findJobsBtn.textContent = "Analysing your skills...";
+
+      try {
+        // Save skills to backend if logged in
+        if (isLoggedIn) {
+          await fetch(`${API_BASE}/api/user/skills`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ skills: pillsSkills })
+          }).catch(() => {});
+          // Clear localStorage draft after successful save
+          try { localStorage.removeItem(SKILLS_KEY); } catch (e) {}
+        }
+
+        const data = await fetchJobsFromBackend(rawText);
+        currentJobs = (data && data.jobs) || [];
+        renderJobs(currentJobs);
+      } catch (err) {
+        console.error(err);
+        inputError.textContent = "Something went wrong while fetching jobs. Please try again.";
+        inputError.style.display = "block";
+      } finally {
+        findJobsBtn.disabled = false;
+        findJobsBtn.textContent = "🔍 Find jobs I’m already close to";
+      }
+    });
+
+    function renderJobs(jobs) {
+      jobsContainer.innerHTML = "";
+      detailsEmpty.style.display = "block";
+      detailsContent.style.display = "none";
+
+      if (!jobs || !jobs.length) {
+        jobsContainer.innerHTML =
+          "<div class='empty-state'><span>🧩</span><br>No strong matches yet. Try adding a few more skills.</div>";
+        return;
+      }
+
+      jobs.forEach((job, index) => {
+        const card = document.createElement("div");
+        card.className = "job-card";
+        card.dataset.jobId = job.id;
+
+        if (index === 0) {
+          card.classList.add("active");
+          showJobDetails(job);
+        }
+
+        const header = document.createElement("div");
+        header.className = "job-header";
+
+        const left = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "job-title";
+        title.textContent = job.title;
+        const company = document.createElement("div");
+        company.className = "job-company";
+        company.textContent = `${job.company || "Unknown"} • ${job.location || "Location flexible"}`;
+        left.appendChild(title);
+        left.appendChild(company);
+
+        const matchChip = document.createElement("div");
+        matchChip.className = "match-chip";
+        const score = job.matchPercent ?? 0;
+        matchChip.dataset.score = score;
+        matchChip.textContent = `${score}% match`;
+
+        header.appendChild(left);
+        header.appendChild(matchChip);
+
+        const meta = document.createElement("div");
+        meta.className = "job-meta";
+        const salary = document.createElement("span");
+        salary.innerHTML = job.salary
+          ? `<span class="salary">${job.salary}</span>`
+          : "<span class='muted'>Salary not specified</span>";
+        meta.appendChild(salary);
+
+        card.appendChild(header);
+        card.appendChild(meta);
+
+        card.addEventListener("click", () => {
+          document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active"));
+          card.classList.add("active");
+          showJobDetails(job);
+        });
+
+        jobsContainer.appendChild(card);
+      });
+
+      // re-apply lock state to newly rendered chips/details
+      setLocked(!isLoggedIn);
+    }
+
+    function getMotivationText(score, missingCount) {
+      if (missingCount === 0) return "You’re fully aligned. Start applying and tell your story with confidence.";
+      if (score >= 85) return "You’re basically there. One last skill push and you’re ready.";
+      if (score >= 70) return "You’re very close. A little focused learning and this role is yours.";
+      if (score >= 50) return "Solid base. Add these skills and you’ll unlock a new level of roles.";
+      return "Every expert started here. Learn these skills step by step and you’ll surprise yourself.";
+    }
+
+    function getCircleColor(score) {
+      if (score < 50) return "#ef4444";
+      if (score < 75) return "#f97316";
+      return "#22c55e";
+    }
+
+    function showJobDetails(job) {
+      if (!job) return;
+
+      detailsEmpty.style.display = "none";
+      detailsContent.style.display = "block";
+
+      detailsJobTitle.textContent = job.title;
+      detailsJobMeta.textContent = `${job.company || "Unknown company"} • ${job.location || "Location flexible"}`;
+
+      const matchScore = job.matchPercent ?? 0;
+      matchText.textContent = `You’re already ${matchScore}% aligned`;
+      matchPercent.textContent = `${matchScore}%`;
+
+      const already = Array.isArray(job.alreadyHave) ? job.alreadyHave : [];
+      const missing = Array.isArray(job.missingSkills) ? job.missingSkills : [];
+      const missingCount = missing.length;
+
+      const angle = Math.max(5, matchScore) * 3.6;
+      const color = getCircleColor(matchScore);
+      matchCircle.style.setProperty("--circle-color", color);
+      matchCircle.style.background =
+        `conic-gradient(${color} 0deg ${angle}deg, rgba(15,23,42,0.95) ${angle}deg 360deg)`;
+      matchCircle.style.boxShadow = `0 0 25px ${color}55`;
+
+      closeText.textContent = getMotivationText(matchScore, missingCount);
+
+      jobInfoList.innerHTML = "";
+      const salaryText = job.salary || "Not specified";
+      const infoItems = [
+        `Company: ${job.company || "Unknown"}`,
+        `Location / Type: ${(job.location || "Not specified")} • ${(job.workType || "N/A")}`,
+        `Seniority: ${job.seniority || "Not specified"}`,
+        `Salary: ${salaryText}`
+      ];
+      infoItems.forEach(text => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        jobInfoList.appendChild(li);
+      });
+
+      // required skills = already + missing (unique)
+      if (!requiredSkillsList) return;
+      requiredSkillsList.innerHTML = "";
+      const allSkills = [...already, ...missing];
+      const seen = new Set();
+      allSkills.forEach(name => {
+        if (!name) return;
+        const key = name.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        const li = document.createElement("li");
+        li.textContent = name;
+        requiredSkillsList.appendChild(li);
+      });
+      if (!seen.size) {
+        const li = document.createElement("li");
+        li.textContent = "No specific skills listed for this role yet.";
+        requiredSkillsList.appendChild(li);
+      }
+
+      // already have
+      if (!alreadyHaveList) return;
+      alreadyHaveList.innerHTML = "";
+      if (already.length) {
+        already.forEach(name => {
+          const li = document.createElement("li");
+          li.textContent = name;
+          alreadyHaveList.appendChild(li);
+        });
+      } else {
+        alreadyHaveList.innerHTML =
+          "<li>You don’t yet match any required skills — but that just means your growth curve will be huge.</li>";
+      }
+
+      // missing skills
+      if (!missingSkillsList) return;
+      missingSkillsList.innerHTML = "";
+      if (missing.length) {
+        missing.forEach(name => {
+          const li = document.createElement("li");
+          li.textContent = `${name} — learn this next.`;
+          missingSkillsList.appendChild(li);
+        });
+      } else {
+        missingSkillsList.innerHTML =
+          "<li>You’re already fully aligned. Start sending applications.</li>";
+      }
+
+      // simple learning path suggestions for each missing skill
+      if (!pathsWrapper) return;
+      pathsWrapper.innerHTML = "";
+      if (!missing.length) {
+        const p = document.createElement("div");
+        p.className = "muted";
+        p.style.fontSize = "0.8rem";
+        p.textContent =
+          "No detailed learning path needed — you already match everything. Focus on building projects and applying.";
+        pathsWrapper.appendChild(p);
+      } else {
+        missing.forEach(skillName => {
+          const card = document.createElement("div");
+          card.className = "path-card";
+
+          const header = document.createElement("div");
+          header.className = "path-header";
+
+          const target = document.createElement("div");
+          target.className = "path-target";
+          target.textContent = skillName;
+
+          const badge = document.createElement("div");
+          badge.className = "path-badge";
+          badge.innerHTML = `<span>🚀</span> Learning roadmap`;
+
+          header.appendChild(target);
+          header.appendChild(badge);
+
+          const pathRow = document.createElement("div");
+          pathRow.className = "muted";
+          pathRow.style.fontSize = "0.78rem";
+          pathRow.innerHTML = "Suggested order:<br>";
+
+          const step1 = document.createElement("span");
+          step1.className = "path-skill";
+          step1.textContent = `1. ${skillName} basics`;
+
+          const step2 = document.createElement("span");
+          step2.className = "path-skill";
+          step2.textContent = `2. Mini projects with ${skillName}`;
+
+          pathRow.appendChild(step1);
+          pathRow.appendChild(step2);
+
+          const resources = document.createElement("ul");
+          resources.className = "resources-list";
+
+          const li1 = document.createElement("li");
+          li1.innerHTML =
+            `<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(skillName + ' tutorial for beginners')}" target="_blank" rel="noopener noreferrer">${skillName} tutorial on YouTube</a><span class="difficulty-tag">Beginner</span>`;
+
+          const li2 = document.createElement("li");
+          li2.innerHTML =
+            `<a href="https://www.google.com/search?q=${encodeURIComponent('learn ' + skillName + ' roadmap')}" target="_blank" rel="noopener noreferrer">${skillName} learning roadmap</a><span class="difficulty-tag">Mixed</span>`;
+
+          resources.appendChild(li1);
+          resources.appendChild(li2);
+
+          card.appendChild(header);
+          card.appendChild(pathRow);
+          card.appendChild(resources);
+
+          pathsWrapper.appendChild(card);
+        });
+      }
+    }
+
+    async function initAuth() {
+      try {
+        const user = await fetchMe();
+        isLoggedIn = Boolean(user);
+        setAvatar(user);
+        
+        // If user is logged in and has saved skills, load those
+        if (user && user.skills && Array.isArray(user.skills) && user.skills.length) {
+          skillsInput.value = user.skills.join(", ");
+          renderSkillPills(user.skills);
+        }
+        // Clear localStorage draft regardless of login state on page load
+        try { localStorage.removeItem(SKILLS_KEY); } catch (e) {}
+      } catch (e) {
+        isLoggedIn = false;
+        setAvatar(null);
+        // Clear localStorage when not logged in
+        try { localStorage.removeItem(SKILLS_KEY); } catch (e) {}
+      }
+      setLocked(!isLoggedIn);
+      if (avatarMenu) avatarMenu.classList.remove("show");
+    }
+
+    initAuth();
+  </script>
+</body>
+</html>

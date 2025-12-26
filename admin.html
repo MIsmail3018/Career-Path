@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CareerPath – Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin:0; padding:0; min-height:100vh; background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%); color:#e5e7eb; }
+    a { color:#22c55e; text-decoration:none; } a:hover { text-decoration:underline; }
+
+    header { padding:14px 24px 4px; }
+    .header-inner { max-width:1150px; margin:0 auto; }
+    .header-bar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:8px 16px; border-radius:999px; border:1px solid rgba(129,140,248,0.7); background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.88)); box-shadow:0 10px 32px rgba(15,23,42,0.85); }
+    .logo-block { display:flex; align-items:center; gap:8px; }
+    .logo-badge { width:32px; height:32px; border-radius:10px; background: linear-gradient(135deg, #6366f1, #22c55e); display:flex; align-items:center; justify-content:center; color:#f9fafb; font-weight:700; font-size:0.9rem; box-shadow:0 0 18px rgba(99,102,241,0.7); }
+    .logo-title { font-size:0.98rem; font-weight:600; color:#f9fafb; }
+
+    .header-nav { display:flex; align-items:center; gap:26px; }
+    .nav-link { font-size:0.95rem; font-weight:600; color:#9ca3af; position:relative; transition:0.25s ease; }
+    .nav-link.active { color:#22c55e; text-shadow:0 0 12px rgba(34,197,94,0.9); }
+
+    .header-avatar { width:32px; height:32px; border-radius:999px; background: radial-gradient(circle at top, #fbbf24, #f97316); display:flex; align-items:center; justify-content:center; font-size:0.9rem; font-weight:600; color:#111827; border:2px solid #22c55e; box-shadow:0 0 14px rgba(34,197,94,0.7); cursor:pointer; }
+    .avatar-wrapper { position:relative; }
+    .avatar-menu { position:absolute; top:42px; right:0; background:#0b1224; border:1px solid rgba(59,130,246,0.8); border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.5); padding:6px; min-width:160px; display:none; z-index:20; }
+    .avatar-menu.show { display:block; }
+    .avatar-menu-item { display:block; width:100%; text-align:left; background:transparent; border:none; color:#e5e7eb; padding:8px 10px; border-radius:8px; font-weight:600; cursor:pointer; text-decoration:none; }
+    .avatar-menu-item:hover { background: rgba(59,130,246,0.2); }
+
+    main { max-width:1150px; margin:20px auto 40px; padding:0 16px 24px; }
+    .card { background: radial-gradient(circle at top left, #020617, #020617 70%, #020617 100%); border-radius:22px; padding:20px 20px 22px; border:1px solid rgba(148,163,184,0.35); box-shadow:0 24px 60px rgba(15,23,42,0.9); position:relative; overflow:hidden; }
+    .card::before { content:""; position:absolute; inset:0; background: radial-gradient(circle at top right, rgba(56,189,248,0.18), transparent 55%); pointer-events:none; }
+
+    .page-title { font-size:1.8rem; font-weight:700; color:#f9fafb; margin-bottom:6px; }
+    .page-subtitle { font-size:0.9rem; color:#9ca3af; margin-bottom:18px; }
+
+    .grid { display:grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap:16px; }
+    @media (max-width:900px){ .grid { grid-template-columns:1fr; } }
+
+    .stat-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:10px; margin-top:10px; }
+    @media (max-width:900px){ .stat-grid { grid-template-columns:1fr 1fr; } }
+    .stat-card { border-radius:14px; padding:12px; background: rgba(15,23,42,0.96); border:1px solid rgba(55,65,81,0.9); }
+    .stat-label { font-size:0.8rem; color:#9ca3af; }
+    .stat-value { font-size:1.2rem; font-weight:600; color:#f9fafb; }
+
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:8px 10px; border-bottom:1px solid rgba(55,65,81,0.6); font-size:0.85rem; }
+    th { text-align:left; color:#9ca3af; }
+    .btn { border:none; border-radius:999px; padding:8px 12px; font-size:0.85rem; font-weight:600; cursor:pointer; }
+    .btn-danger { background:#ef4444; color:#fff; }
+    .muted { color:#9ca3af; }
+    .notice { margin-top:10px; font-size:0.85rem; color:#fca5a5; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="header-bar">
+        <div class="logo-block">
+          <div class="logo-badge">CP</div>
+          <div class="logo-title">CareerPath</div>
+        </div>
+        <nav class="header-nav">
+          <a class="nav-link" href="jobseeker.html">Job Seeker</a>
+          <a class="nav-link" href="employer.html">Employer</a>
+          <a class="nav-link active" href="admin.html">Admin</a>
+        </nav>
+        <div class="avatar-wrapper">
+          <div class="header-avatar" id="avatarButton"><span id="avatarInitial">?</span></div>
+          <div class="avatar-menu" id="avatarMenu"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="page-title">Admin Dashboard</div>
+      <div class="page-subtitle">Manage jobs, users and view platform stats.</div>
+
+      <div id="adminGate" class="notice" style="display:none"></div>
+
+      <div id="adminContent" style="display:none">
+        <div class="grid">
+          <section>
+            <h3 style="margin:0 0 6px">Overview</h3>
+            <div class="stat-grid" id="statGrid"></div>
+          </section>
+          <section>
+            <h3 style="margin:0 0 6px">Top Skills</h3>
+            <div id="topSkills" class="muted"></div>
+          </section>
+        </div>
+
+        <div class="grid" style="margin-top:16px">
+          <section>
+            <h3 style="margin:0 0 6px">All Jobs</h3>
+            <div class="muted" id="jobsInfo">Loading jobs…</div>
+            <table id="jobsTable" style="display:none">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Company</th>
+                  <th>Location</th>
+                  <th>Owner</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="jobsTbody"></tbody>
+            </table>
+          </section>
+          <section>
+            <h3 style="margin:0 0 6px">Users</h3>
+            <div class="muted" id="usersInfo">Loading users…</div>
+            <table id="usersTable" style="display:none">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Company</th>
+                  <th>Joined</th>
+                </tr>
+              </thead>
+              <tbody id="usersTbody"></tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = window.API_BASE ?? (
+      location.port === "5500"
+        ? `${location.protocol}//${location.hostname}:3000`
+        : (location.hostname === "localhost" || location.hostname === "127.0.0.1" ? "" : "https://your-render-service.onrender.com")
+    );
+
+    const avatarButton = document.getElementById("avatarButton");
+    const avatarInitial = document.getElementById("avatarInitial");
+    const avatarMenu = document.getElementById("avatarMenu");
+
+    function setAvatar(user) {
+      const initial = user?.name?.trim?.().charAt?.(0)?.toUpperCase?.() || "?";
+      avatarInitial.textContent = initial;
+      avatarButton.title = user ? `${user.name}` : "Log in to your account";
+      renderAvatarMenu(user);
+    }
+
+    function renderAvatarMenu(user) {
+      if (!avatarMenu) return;
+      if (user) {
+        const isAdmin = user.role === 'admin';
+        avatarMenu.innerHTML = `
+          ${isAdmin ? '<button class="avatar-menu-item" id="menuAdmin">Admin</button>' : ''}
+          <button class="avatar-menu-item" id="menuAccount">Account</button>
+          <button class="avatar-menu-item" id="menuLogout">Logout</button>
+        `;
+        const accountBtn = document.getElementById("menuAccount");
+        const logoutBtn = document.getElementById("menuLogout");
+        const adminBtn = document.getElementById("menuAdmin");
+        accountBtn?.addEventListener("click", () => window.location.href = "account.html");
+        adminBtn?.addEventListener("click", () => window.location.href = "admin.html");
+        logoutBtn?.addEventListener("click", async () => {
+          logoutBtn.textContent = "Logging out...";
+          try {
+            await fetch(`${API_BASE}/api/auth/logout`, { method: "POST", credentials: "include" });
+          } catch (e) {}
+          window.location.href = "login.html";
+        });
+      } else {
+        avatarMenu.innerHTML = `
+          <a class="avatar-menu-item" href="login.html">Log in</a>
+          <a class="avatar-menu-item" href="register.html">Create account</a>
+        `;
+      }
+    }
+
+    function toggleAvatarMenu() {
+      if (!avatarMenu) return;
+      avatarMenu.classList.toggle("show");
+    }
+    avatarButton?.addEventListener("click", (e) => { e.stopPropagation(); toggleAvatarMenu(); });
+    document.addEventListener("click", (e) => { if (avatarMenu?.classList.contains("show") && !avatarMenu.contains(e.target) && !avatarButton?.contains(e.target)) avatarMenu.classList.remove("show"); });
+
+    async function fetchMe() {
+      const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: "include" });
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => null);
+      return data?.user || null;
+    }
+
+    async function loadStats() {
+      const res = await fetch(`${API_BASE}/api/admin/stats`, { credentials: "include" });
+      if (!res.ok) throw new Error("Failed stats");
+      const data = await res.json();
+      const grid = document.getElementById('statGrid');
+      grid.innerHTML = '';
+      const items = [
+        { label: 'Total Users', value: data.usersTotal },
+        { label: 'Seekers', value: data.roles?.seeker || 0 },
+        { label: 'Employers', value: data.roles?.employer || 0 },
+        { label: 'Admins', value: data.roles?.admin || 0 },
+        { label: 'Total Jobs', value: data.jobsTotal }
+      ];
+      items.forEach(({label, value}) => {
+        const div = document.createElement('div');
+        div.className = 'stat-card';
+        div.innerHTML = `<div class='stat-label'>${label}</div><div class='stat-value'>${value}</div>`;
+        grid.appendChild(div);
+      });
+      const top = document.getElementById('topSkills');
+      if (Array.isArray(data.topSkills) && data.topSkills.length) {
+        top.innerHTML = data.topSkills.map(s => `${s.name} (${s.count})`).join(', ');
+      } else {
+        top.textContent = 'No skill data yet';
+      }
+    }
+
+    async function loadJobs() {
+      const info = document.getElementById('jobsInfo');
+      const table = document.getElementById('jobsTable');
+      const tbody = document.getElementById('jobsTbody');
+      const res = await fetch(`${API_BASE}/api/admin/jobs`, { credentials: "include" });
+      if (!res.ok) { info.textContent = 'Failed to load jobs'; return; }
+      const jobs = await res.json();
+      if (!jobs.length) { info.textContent = 'No jobs yet'; return; }
+      info.style.display = 'none'; table.style.display = 'table';
+      tbody.innerHTML = '';
+      jobs.forEach(job => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${job.title}</td>
+          <td>${job.company}</td>
+          <td>${job.location}</td>
+          <td>${job.owner_user_id || '—'}</td>
+          <td><button class='btn btn-danger' data-id='${job.id}'>Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      tbody.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button[data-id]');
+        if (!btn) return;
+        const id = btn.getAttribute('data-id');
+        btn.disabled = true; btn.textContent = 'Deleting...';
+        try {
+          const resp = await fetch(`${API_BASE}/api/admin/jobs/${id}`, { method: 'DELETE', credentials: 'include' });
+          if (resp.ok) { btn.closest('tr').remove(); }
+        } finally {
+          btn.disabled = false; btn.textContent = 'Delete';
+        }
+      });
+    }
+
+    async function loadUsers() {
+      const info = document.getElementById('usersInfo');
+      const table = document.getElementById('usersTable');
+      const tbody = document.getElementById('usersTbody');
+      const res = await fetch(`${API_BASE}/api/admin/users`, { credentials: "include" });
+      if (!res.ok) { info.textContent = 'Failed to load users'; return; }
+      const users = await res.json();
+      if (!users.length) { info.textContent = 'No users yet'; return; }
+      info.style.display = 'none'; table.style.display = 'table';
+      tbody.innerHTML = '';
+      users.forEach(u => {
+        const tr = document.createElement('tr');
+        const company = u.companyName ? `${u.companyName}` : '—';
+        tr.innerHTML = `
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>${u.role}</td>
+          <td>${company}</td>
+          <td>${new Date(u.createdAt).toLocaleDateString?.() || u.createdAt}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function init() {
+      const user = await fetchMe();
+      if (!user || user.role !== 'admin') {
+        setAvatar(user || null);
+        const gate = document.getElementById('adminGate');
+        gate.style.display = 'block';
+        gate.innerHTML = 'Admin access required. <a href="login.html" style="color:#93c5fd">Log in</a> as an admin.';
+        return;
+      }
+      setAvatar(user);
+      document.getElementById('adminContent').style.display = 'block';
+      await Promise.allSettled([
+        loadStats(),
+        loadJobs(),
+        loadUsers()
+      ]);
+    }
+
+    init();
+  </script>
+</body>
+</html>

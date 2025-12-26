@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CareerPath – Post a Job</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%);
+      color: #e5e7eb;
+    }
+    a {
+      color: #22c55e;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* =============== HEADER =============== */
+    header {
+      padding: 14px 24px 4px;
+      background: transparent;
+      border-bottom: none;
+    }
+    .header-inner {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(129,140,248,0.7);
+      background: radial-gradient(circle at top left,
+                  rgba(15,23,42,0.96),
+                  rgba(15,23,42,0.88));
+      box-shadow: 0 10px 32px rgba(15,23,42,0.85);
+    }
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6366f1, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 0 18px rgba(99,102,241,0.7);
+    }
+    .logo-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav-link {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #9ca3af;
+      text-decoration: none;
+      position: relative;
+      transition: 0.25s ease;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 3px;
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: 0.25s ease;
+    }
+    .nav-link.active {
+      color: #22c55e;
+      text-shadow: 0 0 12px rgba(34,197,94,0.9);
+    }
+    .nav-link.active::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .header-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #fbbf24, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111827;
+      border: 2px solid #22c55e;
+      box-shadow: 0 0 14px rgba(34,197,94,0.7);
+      cursor: pointer;
+    }
+    .avatar-wrapper { position: relative; }
+    .avatar-menu {
+      position: absolute;
+      top: 42px;
+      right: 0;
+      background: #0b1224;
+      border: 1px solid rgba(59,130,246,0.8);
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      padding: 6px;
+      min-width: 150px;
+      display: none;
+      z-index: 20;
+    }
+    .avatar-menu.show { display: block; }
+    .avatar-menu-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      color: #e5e7eb;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .avatar-menu-item:hover { background: rgba(59,130,246,0.2); }
+
+    @media (max-width: 640px) {
+      .header-bar {
+        padding: 8px 12px;
+      }
+      .logo-title {
+        font-size: 0.9rem;
+      }
+      .header-nav {
+        gap: 10px;
+        font-size: 0.8rem;
+      }
+      .nav-link:nth-child(2) {
+        display: none;
+      }
+    }
+
+    /* =============== LAYOUT =============== */
+    main {
+      max-width: 1150px;
+      margin: 20px auto 40px;
+      padding: 0 16px 24px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+    @media (max-width: 900px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #020617, #020617 70%, #020617 100%);
+      border-radius: 22px;
+      padding: 20px 20px 22px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    .page-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      text-align: center;
+      color: #f9fafb;
+      margin-bottom: 6px;
+    }
+    .page-title span {
+      color: #22c55e;
+    }
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    /* =============== FORM =============== */
+
+    form {
+      position: relative;
+      z-index: 1;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 16px;
+    }
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+    label span.required {
+      color: #fb7185;
+      margin-left: 2px;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="url"],
+    select,
+    textarea {
+      border-radius: 12px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 8px 10px;
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
+      font-size: 0.86rem;
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.55);
+    }
+
+    .skills-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.9);
+      color: #e5e7eb;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: center;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(to right, #16a34a, #22c55e, #0ea5e9);
+      color: #022c22;
+      box-shadow: 0 10px 34px rgba(16,185,129,0.7);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .hint-small {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .alert {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(248,250,252,0.18);
+      background: rgba(15,23,42,0.9);
+    }
+    .alert-success {
+      color: #bbf7d0;
+      border-color: rgba(34,197,94,0.6);
+      background: rgba(21,128,61,0.18);
+    }
+    .alert-error {
+      color: #fecaca;
+      border-color: rgba(248,113,113,0.6);
+      background: rgba(127,29,29,0.2);
+    }
+
+    /* =============== PREVIEW CARD =============== */
+
+    .preview-header {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #e5e7eb;
+      text-align: left;
+    }
+    .preview-sub {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .job-card-preview {
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: #020617;
+      border: 1px solid rgba(55,65,81,0.9);
+      box-shadow: 0 18px 50px rgba(15,23,42,0.9);
+      margin-bottom: 12px;
+    }
+    .job-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .job-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+    .job-card-company {
+      font-size: 0.82rem;
+      color: #9ca3af;
+    }
+    .job-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    /* demo match bar instead of text */
+    .match-pill-demo {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.95);
+      background: rgba(15,23,42,0.95);
+      min-width: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .match-pill-bar {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #22c55e, #0ea5e9);
+      box-shadow: 0 0 10px rgba(34,197,94,0.8);
+    }
+
+    .apply-link-preview {
+      font-size: 0.8rem;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =============== HEADER =============== -->
+  <header>
+    <div class="header-inner">
+      <div class="header-bar">
+        <div class="logo-block">
+          <div class="logo-badge">CP</div>
+          <span class="logo-title">CareerPath</span>
+        </div>
+
+        <div class="header-nav">
+          <a id="navSeeker" href="index.html" class="nav-link">I’m a Job Seeker</a>
+          <a id="navEmployer" href="employer.html" class="nav-link">I’m an Employer</a>
+
+          <div class="avatar-wrapper">
+            <div class="header-avatar" id="avatarButton" title="Log in to your account">
+              <span id="avatarInitial">?</span>
+            </div>
+            <div class="avatar-menu" id="avatarMenu"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =============== MAIN =============== -->
+  <main>
+    <section class="card">
+      <div class="page-title">
+        Post a <span>skill-based job</span> in minutes.
+      </div>
+      <p class="page-subtitle">
+        Tell us what you’re hiring for, the skills you need, and where candidates should apply.
+        CareerPath will handle the matching.
+      </p>
+
+      <div class="page-grid">
+        <!-- LEFT: FORM -->
+        <div>
+          <div class="alert" id="authGate" style="margin-bottom:12px; background: rgba(127,29,29,0.2); border:1px solid rgba(248,113,113,0.6); color:#fecaca;">
+            You must be logged in as an employer to post jobs. <a href="login.html" style="color:#93c5fd;">Log in</a> or <a href="register.html" style="color:#93c5fd;">register</a> first.
+          </div>
+
+          <form id="jobForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="title">Job title <span class="required">*</span></label>
+                <input id="title" type="text" placeholder="e.g. Frontend Developer" required />
+              </div>
+
+              <div class="form-group">
+                <label for="company">Company name <span class="required">*</span></label>
+                <input id="company" type="text" placeholder="e.g. Tech Corp" required />
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location <span class="required">*</span></label>
+                <input id="location" type="text" placeholder="e.g. Remote, Lahore, Hybrid – Karachi" required />
+              </div>
+
+              <div class="form-group">
+                <label for="workType">Work type</label>
+                <select id="workType">
+                  <option value="">Select an option</option>
+                  <option value="Remote">Remote</option>
+                  <option value="On-site">On-site</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="salary">Estimated yearly salary (optional)</label>
+                <input id="salary" type="number" min="0" placeholder="e.g. 70000" />
+              </div>
+
+              <div class="form-group">
+                <label for="seniority">Seniority level</label>
+                <select id="seniority">
+                  <option value="">Select level</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Mid-level">Mid-level</option>
+                  <option value="Senior">Senior</option>
+                  <option value="Lead">Lead</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="summary">Short role summary</label>
+                <textarea id="summary" placeholder="One or two sentences about the role and team."></textarea>
+              </div>
+
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="skills">Required skills for this job <span class="required">*</span></label>
+                <input id="skills" type="text" placeholder="Comma-separated: React, TypeScript, REST APIs, SQL" required />
+                <div class="hint-small">
+                  These are the skills we’ll match against candidates. You can edit them later.
+                </div>
+                <div id="skillsPreview" class="skills-pill-row"></div>
+              </div>
+
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="applyUrl">Where should candidates apply? <span class="required">*</span></label>
+                <input id="applyUrl" type="url" placeholder="Link to your careers site or job posting" required />
+                <div class="hint-small">
+                  When a candidate has a strong match score, they’ll be sent to this link to apply.
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="submit" class="btn btn-primary" id="submitBtn">
+                📤 Publish job to CareerPath
+              </button>
+              <span class="hint-small">
+                You can always edit or close this job later in your dashboard.
+              </span>
+            </div>
+
+            <div id="formMessage" class="alert" style="display:none;"></div>
+          </form>
+        </div>
+
+        <!-- RIGHT: LIVE PREVIEW -->
+        <div>
+          <div class="preview-header">Live preview</div>
+          <div class="preview-sub">
+            This is how your job will appear to candidates on the CareerPath “Top matches” list.
+          </div>
+
+          <div class="job-card-preview" id="jobPreview">
+            <div class="job-card-header">
+              <div>
+                <div class="job-card-title" id="previewTitle">Job title</div>
+                <div class="job-card-company" id="previewCompany">
+                  Company • Location
+                </div>
+              </div>
+
+              <!-- demo match bar -->
+              <div class="match-pill-demo">
+                <div class="match-pill-bar"></div>
+              </div>
+            </div>
+
+            <div class="job-card-meta">
+              <span id="previewSalary"><span class="hint-small">Salary not specified</span></span>
+              <span id="previewWorkType"></span>
+              <span id="previewSeniority"></span>
+            </div>
+
+            <div class="apply-link-preview" id="previewApply">
+              🔗 Application link will show here when you add it.
+            </div>
+
+            <div class="apply-link-preview" id="previewSkillsLine" style="margin-top:8px;">
+              <span class="hint-small">Required skills: none listed yet.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY JOBS LIST -->
+    <section class="card">
+      <div class="section-header">My posted jobs</div>
+      <div class="section-sub">Only jobs you posted while signed in appear here. Delete to remove them.</div>
+
+      <div id="myJobsGate" class="alert" style="display:none; background: rgba(127,29,29,0.2); border:1px solid rgba(248,113,113,0.6); color:#fecaca;">
+        Log in to view and manage your jobs. <a href="login.html" style="color:#93c5fd;">Log in</a>
+      </div>
+
+      <div id="myJobsEmpty" class="muted" style="display:none;">No jobs yet. Post your first job above.</div>
+
+      <table class="job-table" id="myJobsTable" style="width:100%; display:none;">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Location</th>
+            <th>Posted</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    // API base auto-uses same origin locally; override window.API_BASE for hosted frontend
+    const API_BASE = window.API_BASE ?? (
+      location.port === "5500"
+        ? `${location.protocol}//${location.hostname}:3000`
+        : (location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? ""
+            : "https://your-render-service.onrender.com")
+    );
+
+    // nav active state
+    const seekerLink = document.querySelector("#navSeeker");
+    const employerLink = document.querySelector("#navEmployer");
+    function setActive(tab) {
+      seekerLink.classList.remove("active");
+      employerLink.classList.remove("active");
+      if (tab === "seeker") seekerLink.classList.add("active");
+      if (tab === "employer") employerLink.classList.add("active");
+    }
+    setActive("employer");
+
+    const titleInput = document.getElementById("title");
+    const companyInput = document.getElementById("company");
+    const locationInput = document.getElementById("location");
+    const workTypeInput = document.getElementById("workType");
+    const salaryInput = document.getElementById("salary");
+    const seniorityInput = document.getElementById("seniority");
+    const summaryInput = document.getElementById("summary");
+    const skillsInput = document.getElementById("skills");
+    const applyUrlInput = document.getElementById("applyUrl");
+    const skillsPreview = document.getElementById("skillsPreview");
+
+    const previewTitle = document.getElementById("previewTitle");
+    const previewCompany = document.getElementById("previewCompany");
+    const previewSalary = document.getElementById("previewSalary");
+    const previewWorkType = document.getElementById("previewWorkType");
+    const previewSeniority = document.getElementById("previewSeniority");
+    const previewApply = document.getElementById("previewApply");
+    const previewSkillsLine = document.getElementById("previewSkillsLine");
+
+    const jobForm = document.getElementById("jobForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const formMessage = document.getElementById("formMessage");
+
+    const authGate = document.getElementById("authGate");
+    const myJobsGate = document.getElementById("myJobsGate");
+    const myJobsEmpty = document.getElementById("myJobsEmpty");
+    const myJobsTable = document.getElementById("myJobsTable");
+    const myJobsTbody = myJobsTable.querySelector("tbody");
+
+    const avatarButton = document.getElementById("avatarButton");
+    const avatarInitial = document.getElementById("avatarInitial");
+    const avatarMenu = document.getElementById("avatarMenu");
+
+    let currentUser = null;
+
+    let myJobs = [];
+
+    function parseSkills(text) {
+      return text
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    function setFormEnabled(enabled) {
+      [titleInput, companyInput, locationInput, workTypeInput, salaryInput, seniorityInput, summaryInput, skillsInput, applyUrlInput, submitBtn]
+        .forEach(el => el.disabled = !enabled);
+      if (!enabled) {
+        submitBtn.textContent = "Login to post";
+      } else {
+        submitBtn.textContent = "📤 Publish job to CareerPath";
+      }
+    }
+
+    function renderMyJobs(jobs) {
+      myJobsTbody.innerHTML = "";
+      if (!jobs.length) {
+        myJobsTable.style.display = "none";
+        myJobsEmpty.style.display = "block";
+        return;
+      }
+      myJobsTable.style.display = "table";
+      myJobsEmpty.style.display = "none";
+      jobs.forEach(job => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${job.title}</td>
+          <td>${job.location || "—"}</td>
+          <td>${job.createdAt ? new Date(job.createdAt).toLocaleDateString() : "—"}</td>
+          <td><button data-id="${job.id}" class="btn btn-primary" style="padding:6px 12px; font-size:0.8rem;">Delete</button></td>
+        `;
+        myJobsTbody.appendChild(tr);
+      });
+    }
+
+    async function loadMyJobs() {
+      const res = await fetch(`${API_BASE}/api/my-jobs`, { credentials: "include" });
+      if (!res.ok) throw new Error("Could not load jobs");
+      const data = await res.json();
+      myJobs = data || [];
+      renderMyJobs(myJobs);
+    }
+
+    async function fetchMe() {
+      const res = await fetch(`${API_BASE}/api/auth/me`, {
+        credentials: "include"
+      });
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => null);
+      return data?.user || null;
+    }
+
+
+    function renderSkillsPills() {
+      const skills = parseSkills(skillsInput.value);
+      skillsPreview.innerHTML = "";
+      if (!skills.length) return;
+      skills.forEach(skill => {
+        const pill = document.createElement("span");
+        pill.className = "pill";
+        pill.textContent = skill;
+        skillsPreview.appendChild(pill);
+      });
+      // preview line
+      if (skills.length) {
+        previewSkillsLine.innerHTML =
+          "Required skills: " + skills.join(", ");
+      } else {
+        previewSkillsLine.innerHTML =
+          '<span class="hint-small">Required skills: none listed yet.</span>';
+      }
+    }
+
+    function formatDisplayUrl(url) {
+      try {
+        const u = new URL(url);
+        let display = u.hostname.replace(/^www\./, "");
+        if (u.pathname && u.pathname !== "/") {
+          const path = u.pathname.length > 18 ? u.pathname.slice(0, 18) + "…" : u.pathname;
+          display += path;
+        }
+        return display;
+      } catch (e) {
+        return url.length > 30 ? url.slice(0, 30) + "…" : url;
+      }
+    }
+
+    function updatePreview() {
+      const title = titleInput.value.trim() || "Job title";
+      const company = companyInput.value.trim() || "Company";
+      const location = locationInput.value.trim() || "Location";
+
+      previewTitle.textContent = title;
+      previewCompany.textContent = `${company} • ${location}`;
+
+      const salaryVal = salaryInput.value.trim();
+      if (salaryVal) {
+        const num = Number(salaryVal);
+        const formatted = Number.isFinite(num) && num > 0 && num.toLocaleString
+          ? num.toLocaleString()
+          : salaryVal;
+        previewSalary.innerHTML = `<span class="salary">$${formatted}</span> / year`;
+      } else {
+        previewSalary.innerHTML = `<span class="hint-small">Salary not specified</span>`;
+      }
+
+      previewWorkType.textContent = workTypeInput.value
+        ? workTypeInput.value
+        : "";
+      previewSeniority.textContent = seniorityInput.value
+        ? seniorityInput.value + " role"
+        : "";
+
+      const applyUrl = applyUrlInput.value.trim();
+      if (applyUrl) {
+        const display = formatDisplayUrl(applyUrl);
+        previewApply.innerHTML = `🔗 Candidates will apply at <a href="${applyUrl}" target="_blank" rel="noopener noreferrer">${display}</a>.`;
+      } else {
+        previewApply.innerHTML =
+          "🔗 Application link will show here when you add it.";
+      }
+
+      renderSkillsPills();
+    }
+
+    // live updates
+    [
+      titleInput,
+      companyInput,
+      locationInput,
+      workTypeInput,
+      salaryInput,
+      seniorityInput,
+      summaryInput,
+      skillsInput,
+      applyUrlInput
+    ].forEach(el => el.addEventListener("input", updatePreview));
+
+    updatePreview(); // initial
+
+    function setAvatar(user) {
+      currentUser = user;
+      if (!avatarButton || !avatarInitial) return;
+      const initial = user?.name?.trim?.().charAt?.(0)?.toUpperCase?.() || "?";
+      avatarInitial.textContent = initial;
+      avatarButton.title = user ? `${user.name}` : "Log in to your account";
+      renderAvatarMenu(user);
+    }
+
+    function renderAvatarMenu(user) {
+      if (!avatarMenu) return;
+      if (user) {
+        const isAdmin = user.role === 'admin';
+        avatarMenu.innerHTML = `
+          ${isAdmin ? '<button class="avatar-menu-item" id="menuAdmin">Admin</button>' : ''}
+          <button class="avatar-menu-item" id="menuAccount">Account</button>
+          <button class="avatar-menu-item" id="menuLogout">Logout</button>
+        `;
+        const accountBtn = document.getElementById("menuAccount");
+        const logoutBtn = document.getElementById("menuLogout");
+        const adminBtn = document.getElementById("menuAdmin");
+        accountBtn?.addEventListener("click", () => window.location.href = "account.html");
+        adminBtn?.addEventListener("click", () => window.location.href = "admin.html");
+        logoutBtn?.addEventListener("click", async () => {
+          logoutBtn.textContent = "Logging out...";
+          try {
+            await fetch(`${API_BASE}/api/auth/logout`, { method: "POST", credentials: "include" });
+          } catch (e) {}
+          window.location.href = "login.html";
+        });
+      } else {
+        avatarMenu.innerHTML = `
+          <a class="avatar-menu-item" href="login.html">Log in</a>
+          <a class="avatar-menu-item" href="register.html">Create account</a>
+        `;
+      }
+    }
+
+    function toggleAvatarMenu() {
+      if (!avatarMenu) return;
+      avatarMenu.classList.toggle("show");
+    }
+
+    if (avatarButton) {
+      avatarButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleAvatarMenu();
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!avatarMenu || !avatarMenu.classList.contains("show")) return;
+      const within = avatarMenu.contains(e.target) || avatarButton?.contains(e.target);
+      if (!within) avatarMenu.classList.remove("show");
+    });
+
+    function applyAuthState(user) {
+      setAvatar(user);
+      const hasEmployerAccess = Boolean(user && user.role === "employer");
+
+      if (!hasEmployerAccess) {
+        if (!user) {
+          authGate.innerHTML = 'You must be logged in as an employer to post jobs. <a href="login.html" style="color:#93c5fd;">Log in</a> or <a href="register.html" style="color:#93c5fd;">register</a> first.';
+          myJobsGate.innerHTML = 'Log in as an employer to view and manage your jobs. <a href="login.html" style="color:#93c5fd;">Log in</a>';
+        } else {
+          authGate.innerHTML = 'You are logged in as a job seeker. Switch to an employer account to post jobs.';
+          myJobsGate.innerHTML = 'Only employer accounts can view posted jobs. Log out and sign in as an employer.';
+        }
+      }
+
+      authGate.style.display = hasEmployerAccess ? "none" : "block";
+      myJobsGate.style.display = hasEmployerAccess ? "none" : "block";
+      setFormEnabled(hasEmployerAccess);
+
+      if (hasEmployerAccess) {
+        loadMyJobs().catch(() => {
+          myJobsTable.style.display = "none";
+          myJobsEmpty.style.display = "block";
+        });
+      } else {
+        myJobsTable.style.display = "none";
+        myJobsEmpty.style.display = "none";
+      }
+    }
+
+    myJobsTbody.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button[data-id]");
+      if (!btn) return;
+      const jobId = btn.getAttribute("data-id");
+      btn.disabled = true;
+      btn.textContent = "Deleting...";
+      try {
+        const res = await fetch(`${API_BASE}/api/jobs/${jobId}`, {
+          method: "DELETE",
+          credentials: "include"
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || "Delete failed");
+        }
+        await loadMyJobs();
+      } catch (err) {
+        alert(err.message || "Could not delete job");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Delete";
+      }
+    });
+
+    // Attempt session restore
+    fetchMe()
+      .then(user => {
+        applyAuthState(user);
+        if (avatarMenu) avatarMenu.classList.remove("show");
+      })
+      .catch(() => {
+        applyAuthState(null);
+        if (avatarMenu) avatarMenu.classList.remove("show");
+      });
+
+    jobForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const title = titleInput.value.trim();
+      const company = companyInput.value.trim();
+      const location = locationInput.value.trim();
+      const applyUrl = applyUrlInput.value.trim();
+      const skills = parseSkills(skillsInput.value);
+
+      if (!title || !company || !location || !applyUrl || skills.length === 0) {
+        formMessage.textContent =
+          "Please fill in job title, company, location, required skills and application link.";
+        formMessage.className = "alert alert-error";
+        formMessage.style.display = "block";
+        return;
+      }
+
+      const payload = {
+        title,
+        company,
+        location,
+        workType: workTypeInput.value || null,
+        salary: salaryInput.value ? Number(salaryInput.value) : null,
+        seniority: seniorityInput.value || null,
+        summary: summaryInput.value.trim() || null,
+        requiredSkills: skills,
+        applyUrl
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Saving job...";
+
+      try {
+        const res = await fetch(`${API_BASE}/api/jobs`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          credentials: "include"
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || "Request failed");
+        }
+
+        formMessage.textContent =
+          "Your job has been saved. Candidates will see it once matching is enabled.";
+        formMessage.className = "alert alert-success";
+        formMessage.style.display = "block";
+
+        jobForm.reset();
+        updatePreview();
+        loadMyJobs().catch(() => {});
+      } catch (err) {
+        console.error(err);
+        formMessage.textContent = err.message ||
+          "Could not save the job. Check your connection or backend URL and try again.";
+        formMessage.className = "alert alert-error";
+        formMessage.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "📤 Publish job to CareerPath";
+      }
+    });
+  </script>
+</body>
+</html>
