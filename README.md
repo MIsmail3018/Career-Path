@@ -28,6 +28,25 @@
 - Role-based access control: `seeker`, `employer`, `admin`
 - Admin user is pre-seeded on startup: `admin@gmail.com` / `123456`
 
+## Visuals
+
+### Demo Video
+Watch the demo: [careerPath working.mp4](careerPath%20working.mp4)
+
+<video src="careerPath%20working.mp4" controls width="800"></video>
+
+### Screenshots
+- Job seeker dashboard with skill matching
+  ![Job seeker dashboard](Seeker%20dashboard.png)
+
+- Employer job posting
+  ![Employer job posting](job%20posting.png)
+
+- Admin dashboard with statistics
+  ![Admin dashboard](admin%20dashboard.png)
+
+- 
+
 ## Local Setup
 
 ### Requirements
@@ -97,24 +116,6 @@ Recommended split hosting:
 - Migrations are handled inline on startup: user table columns + admin role enum update, job owner column, admin seeding.
 - Match scoring is simple percentage of required skills present.
 
-## Visuals
 
-### Demo Video
-**Option 1 (Hosted):** [Watch the demo video](https://your-video-link-here)
-
-**Option 2 (Local file in repo):**
-<video src="videos/demo.mp4" controls width="800"></video>
-
-### Screenshots
-- Job seeker dashboard with skill matching
-  ![Job seeker dashboard](Seeker%20dashboard.png)
-
-- Employer job posting
-  ![Employer job posting](job%20posting.png)
-
-- Admin dashboard with statistics
-  ![Admin dashboard](admin%20dashboard.png)
-
-- 
 ## License
 MIT (see LICENSE).
