@@ -8,7 +8,7 @@
 **Group Members:**
 - Name: Muhammad Ismail----Registration ID: B24F0628CS165
 - Name: Saffi Ur Rehman----Registration ID: B24F0525CS167
-- Name: Mahnoor Malik  ----Registration ID: B24F0282CS128
+- Name: Mahnoor Malik  ----Registration ID: B24F0282CS165
 
 
 ## Project Title & Description
@@ -31,9 +31,9 @@
 ## Visuals
 
 ### Demo Video
-Watch the demo: [careerPath working (2).mp4](careerPath%20working%20%282%29.mp4)
+Watch the demo: [careerpath-working.mp4](https://raw.githubusercontent.com/MIsmail3018/Career-Path/main/careerpath-working.mp4)
 
-<video src="careerPath%20working%20%282%29.mp4" controls width="800"></video>
+<video src="https://raw.githubusercontent.com/MIsmail3018/Career-Path/main/careerpath-working.mp4" controls width="800"></video>
 
 ### Screenshots
 - Job seeker dashboard with skill matching
