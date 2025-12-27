@@ -13,6 +13,8 @@
 
 ## Project Title & Description
 
+Live site: [https://fanciful-duckanoo-de05c6.netlify.app](https://fanciful-duckanoo-de05c6.netlify.app)
+
 **CareerPath** is a job matching platform that intelligently connects job seekers with opportunities based on their skills. The app features:
 
 **CareerPath** is a simple job matching app with:
