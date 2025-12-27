@@ -100,7 +100,10 @@ Recommended split hosting:
 ## Visuals
 
 ### Demo Video
-[Link to demo video or embed here]
+**Option 1 (Hosted):** [Watch the demo video](https://your-video-link-here)
+
+**Option 2 (Local file in repo):**
+<video src="videos/demo.mp4" controls width="800"></video>
 
 ### Screenshots
 - Job seeker dashboard with skill matching
