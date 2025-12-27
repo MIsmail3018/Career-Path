@@ -8,7 +8,7 @@
 **Group Members:**
 - Name: Muhammad Ismail----Registration ID: B24F0628CS165
 - Name: Saffi Ur Rehman----Registration ID: B24F0525CS167
-- Name: Mahnoor Malik  ----Registration ID: B24F0282CS165
+- Name: Mahnoor Malik  ----Registration ID: B24F0282CS128
 
 
 ## Project Title & Description
