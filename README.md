@@ -31,9 +31,9 @@
 ## Visuals
 
 ### Demo Video
-Watch the demo: [careerPath working.mp4](careerPath%20working.mp4)
+Watch the demo: [careerPath working (2).mp4](careerPath%20working%20%282%29.mp4)
 
-<video src="careerPath%20working.mp4" controls width="800"></video>
+<video src="careerPath%20working%20%282%29.mp4" controls width="800"></video>
 
 ### Screenshots
 - Job seeker dashboard with skill matching
