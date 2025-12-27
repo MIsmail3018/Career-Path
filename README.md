@@ -1,9 +1,15 @@
 # CareerPath
 
+## Supervision Note
+
+**This project was developed for the Data Structures and Algorithms (DSA) course under the supervision of Lab Engineer Obaidullah Miakhil.**
+
 ## Group Details
 **Group Members:**
-- Name: [Your Name] | Registration ID: [Your ID]
-- (Add more members as needed)
+- Name: Muhammad Ismail----Registration ID: B24F0628CS165
+- Name: Saffi Ur Rehman----Registration ID: B24F0525CS167
+- Name: Mahnoor Malik  ----Registration ID: B24F0282CS165
+
 
 ## Project Title & Description
 
@@ -97,15 +103,15 @@ Recommended split hosting:
 [Link to demo video or embed here]
 
 ### Screenshots
-[Add screenshots showing:
 - Job seeker dashboard with skill matching
+  ![Job seeker dashboard](Seeker%20dashboard.png)
+
 - Employer job posting
+  ![Employer job posting](job%20posting.png)
+
 - Admin dashboard with statistics
-]
+  ![Admin dashboard](admin%20dashboard.png)
 
-## Supervision Note
-
-**This project was developed for the Data Structures and Algorithms (DSA) course under the supervision of Lab Engineer Obaidullah Miakhil.**
-
+- 
 ## License
 MIT (see LICENSE).
