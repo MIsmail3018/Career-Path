@@ -31,9 +31,9 @@
 ## Visuals
 
 ### Demo Video
-Watch the demo: [careerpath-working.mp4](https://raw.githubusercontent.com/MIsmail3018/Career-Path/main/careerpath-working.mp4)
+Watch the demo: [careerpath-working.mp4](https://fanciful-duckanoo-de05c6.netlify.app/careerpath-working.mp4)
 
-<video src="https://raw.githubusercontent.com/MIsmail3018/Career-Path/main/careerpath-working.mp4" controls width="800"></video>
+<video src="https://fanciful-duckanoo-de05c6.netlify.app/careerpath-working.mp4" controls width="800"></video>
 
 ### Screenshots
 - Job seeker dashboard with skill matching
