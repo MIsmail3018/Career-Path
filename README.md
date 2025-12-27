@@ -1,6 +1,15 @@
 # CareerPath
 
-CareerPath is a simple job matching app with:
+## Group Details
+**Group Members:**
+- Name: [Your Name] | Registration ID: [Your ID]
+- (Add more members as needed)
+
+## Project Title & Description
+
+**CareerPath** is a job matching platform that intelligently connects job seekers with opportunities based on their skills. The app features:
+
+**CareerPath** is a simple job matching app with:
 - Node/Express backend + MySQL
 - Employer job posting & deletion
 - Job seeker match scoring from entered skills
@@ -81,6 +90,22 @@ Recommended split hosting:
 ## Development Notes
 - Migrations are handled inline on startup: user table columns + admin role enum update, job owner column, admin seeding.
 - Match scoring is simple percentage of required skills present.
+
+## Visuals
+
+### Demo Video
+[Link to demo video or embed here]
+
+### Screenshots
+[Add screenshots showing:
+- Job seeker dashboard with skill matching
+- Employer job posting
+- Admin dashboard with statistics
+]
+
+## Supervision Note
+
+**This project was developed for the Data Structures and Algorithms (DSA) course under the supervision of Lab Engineer Obaidullah Miakhil.**
 
 ## License
 MIT (see LICENSE).
