@@ -4,11 +4,13 @@
 
 **This project was developed for the Data Structures and Algorithms (DSA) course under the supervision of Lab Engineer Obaidullah Miakhil.**
 
+Supervisor Profiles: [GitHub](https://github.com/obaidullah-miakhil) • [LinkedIn](https://www.linkedin.com/in/obaidullah-miakhil-b28a16248)
+
 ## Group Details
 **Group Members:**
-- Name: Muhammad Ismail----Registration ID: B24F0628CS165
-- Name: Saffi Ur Rehman----Registration ID: B24F0525CS167
-- Name: Mahnoor Malik  ----Registration ID: B24F0282CS128
+- Name: Muhammad Ismail----Registration ID: B24F0628CS165 — [LinkedIn](https://www.linkedin.com/in/muhammad-ismail-9b971b376/)
+- Name: Saffi Ur Rehman----Registration ID: B24F0525CS167 — [LinkedIn](https://www.linkedin.com/in/saffi-ur-rehman-a742b339b/)
+- Name: Mahnoor Malik  ----Registration ID: B24F0282CS128 — [LinkedIn](https://www.linkedin.com/in/mahnoor-malik-420105264/)
 
 
 ## Project Title & Description
